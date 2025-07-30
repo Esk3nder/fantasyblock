@@ -21,9 +21,14 @@ import {
   UI_LIMITS
 } from '@/config/constants';
 
-const autumn = new Autumn({
-  apiKey: process.env.AUTUMN_SECRET_KEY!,
-});
+function getAutumnClient() {
+  if (!process.env.AUTUMN_SECRET_KEY) {
+    throw new ExternalServiceError('Autumn configuration missing', 'autumn');
+  }
+  return new Autumn({
+    apiKey: process.env.AUTUMN_SECRET_KEY,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -54,6 +59,7 @@ export async function POST(request: NextRequest) {
         featureId: 'messages',
       });
       
+      const autumn = getAutumnClient();
       const access = await autumn.check({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
@@ -79,6 +85,7 @@ export async function POST(request: NextRequest) {
 
     // Track API usage with Autumn
     try {
+      const autumn = getAutumnClient();
       await autumn.track({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
@@ -162,6 +169,7 @@ export async function POST(request: NextRequest) {
     // Get remaining credits from Autumn
     let remainingCredits = 0;
     try {
+      const autumn = getAutumnClient();
       const usage = await autumn.check({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
