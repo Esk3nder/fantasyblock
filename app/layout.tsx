@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SaaS Starter",
-  description: "Next.js SaaS Starter with Better Auth",
+  title: "FantasyBlock - AI-Powered Fantasy Draft Assistant",
+  description: "Get personalized, real-time draft recommendations that give you the competitive edge in NFL, NBA, and MLB fantasy sports.",
 };
 
 export default function RootLayout({

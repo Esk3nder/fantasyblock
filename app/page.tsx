@@ -19,20 +19,20 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl lg:text-7xl font-bold tracking-tight mb-8 animate-fade-in-up">
-              <span className="block text-zinc-900">FireGEO Monitor</span>
+              <span className="block text-zinc-900">FantasyBlock</span>
               <span className="block bg-gradient-to-r from-red-600 to-yellow-500 bg-clip-text text-transparent">
-                AI Brand Visibility Platform
+                AI-Powered Draft Assistant
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-zinc-600 max-w-3xl mx-auto mb-6 animate-fade-in-up animation-delay-200">
-              Track how AI models rank your brand against competitors
+              Get personalized, real-time draft recommendations that give you the competitive edge
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
               <Link
-                href="/brand-monitor"
+                href="/draft-setup"
                 className="btn-firecrawl-orange inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
               >
-                Start Brand Analysis
+                Start Draft Setup
               </Link>
               <Link
                 href="/plans"
@@ -42,7 +42,7 @@ export default function Home() {
               </Link>
             </div>
             <p className="mt-6 text-sm text-zinc-500 animate-fade-in-up animation-delay-600">
-              Powered by AI • Real-time Analysis • Competitor Tracking • SEO Insights
+              NFL • NBA • MLB • Real-time Recommendations • League Integration • Draft Analytics
             </p>
           </div>
 
@@ -50,22 +50,86 @@ export default function Home() {
           <div className="mt-20 bg-zinc-900 rounded-[20px] p-12 animate-fade-in-scale animation-delay-800">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="text-center animate-fade-in-up animation-delay-1000">
-                <div className="text-4xl font-bold text-white">ChatGPT</div>
-                <div className="text-sm text-zinc-400 mt-1">Claude, Perplexity & More</div>
+                <div className="text-4xl font-bold text-white">3 Sports</div>
+                <div className="text-sm text-zinc-400 mt-1">NFL, NBA & MLB</div>
               </div>
               <div className="text-center animate-fade-in-up animation-delay-1000" style={{animationDelay: '1100ms'}}>
                 <div className="text-4xl font-bold text-white">Real-time</div>
-                <div className="text-sm text-zinc-400 mt-1">Analysis</div>
+                <div className="text-sm text-zinc-400 mt-1">Draft Recommendations</div>
               </div>
               <div className="text-center animate-fade-in-up animation-delay-1000" style={{animationDelay: '1200ms'}}>
-                <div className="text-4xl font-bold text-white">Competitor</div>
-                <div className="text-sm text-zinc-400 mt-1">Tracking</div>
+                <div className="text-4xl font-bold text-white">League</div>
+                <div className="text-sm text-zinc-400 mt-1">Integration</div>
               </div>
               <div className="text-center animate-fade-in-up animation-delay-1000" style={{animationDelay: '1300ms'}}>
-                <div className="text-4xl font-bold text-white">Actionable</div>
-                <div className="text-sm text-zinc-400 mt-1">Insights</div>
+                <div className="text-4xl font-bold text-white">Smart</div>
+                <div className="text-sm text-zinc-400 mt-1">Player Analysis</div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sport Selection Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-zinc-900 mb-4 animate-fade-in-up">
+              Choose Your Sport
+            </h2>
+            <p className="text-xl text-zinc-600 animate-fade-in-up animation-delay-200">
+              Get AI-powered draft assistance for your favorite fantasy league
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {/* NFL */}
+            <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-400 hover:scale-105 transition-all duration-200 cursor-pointer">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-orange-600">🏈</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-2">NFL Football</h3>
+                <p className="text-zinc-600 mb-4">America's most popular fantasy sport</p>
+                <div className="text-sm text-zinc-500">
+                  16-game season • Weekly lineups • Most active community
+                </div>
+              </div>
+            </div>
+
+            {/* NBA */}
+            <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-600 hover:scale-105 transition-all duration-200 cursor-pointer">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-orange-600">🏀</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-2">NBA Basketball</h3>
+                <p className="text-zinc-600 mb-4">Fast-paced action and daily lineup changes</p>
+                <div className="text-sm text-zinc-500">
+                  82-game season • Daily fantasy options • High scoring
+                </div>
+              </div>
+            </div>
+
+            {/* MLB */}
+            <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-800 hover:scale-105 transition-all duration-200 cursor-pointer">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-orange-600">⚾</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-2">MLB Baseball</h3>
+                <p className="text-zinc-600 mb-4">Strategic depth with detailed statistics</p>
+                <div className="text-sm text-zinc-500">
+                  162-game season • Complex categories • Deep strategy
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <Link href="/draft-setup" className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8">
+              Get Started with Your Sport
+            </Link>
           </div>
         </div>
       </section>
@@ -76,18 +140,18 @@ export default function Home() {
           <div className="bg-gray-50 rounded-[30px] p-16">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-zinc-900 mb-4">
-                Monitor Your Brand Visibility
+                Dominate Your Fantasy Draft
               </h2>
               <p className="text-xl text-zinc-600">
-                Choose the plan that fits your monitoring needs
+                Choose the plan that fits your fantasy needs
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Starter */}
             <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-400 hover:scale-105 transition-all duration-200">
-              <h3 className="text-2xl font-bold mb-2">Starter</h3>
-              <p className="text-zinc-600 mb-6">Perfect for personal brands</p>
+              <h3 className="text-2xl font-bold mb-2">Rookie</h3>
+              <p className="text-zinc-600 mb-6">Perfect for casual fantasy players</p>
               <div className="mb-6">
                 <span className="text-4xl font-bold">$0</span>
                 <span className="text-zinc-600">/month</span>
@@ -97,19 +161,19 @@ export default function Home() {
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  10 brand analyses/month
+                  3 drafts per season
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Basic AI providers
+                  Basic AI recommendations
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Email reports
+                  Draft summaries
                 </li>
               </ul>
               <Link
@@ -126,9 +190,9 @@ export default function Home() {
                 Most Popular
               </div>
               <h3 className="text-2xl font-bold mb-2">Pro</h3>
-              <p className="text-zinc-600 mb-6">For growing businesses</p>
+              <p className="text-zinc-600 mb-6">For serious fantasy managers</p>
               <div className="mb-6">
-                <span className="text-4xl font-bold">$49</span>
+                <span className="text-4xl font-bold">$19</span>
                 <span className="text-zinc-600">/month</span>
               </div>
               <ul className="space-y-3 mb-8">
@@ -136,19 +200,19 @@ export default function Home() {
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Unlimited brand analyses
+                  Unlimited drafts
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  All AI providers
+                  Advanced AI analysis
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Real-time alerts
+                  ESPN/Yahoo integration
                 </li>
               </ul>
               <Link
@@ -162,7 +226,7 @@ export default function Home() {
             {/* Enterprise */}
             <div className="bg-white p-8 rounded-[20px] border border-zinc-200 animate-fade-in-up animation-delay-800 hover:scale-105 transition-all duration-200">
               <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
-              <p className="text-zinc-600 mb-6">For agencies & large brands</p>
+              <p className="text-zinc-600 mb-6">For commissioners & leagues</p>
               <div className="mb-6">
                 <span className="text-4xl font-bold">Custom</span>
               </div>
@@ -171,7 +235,7 @@ export default function Home() {
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  Multiple brands
+                  Multiple teams
                 </li>
                 <li className="flex items-center">
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,7 +247,7 @@ export default function Home() {
                   <svg className="w-5 h-5 text-green-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  White-label options
+                  League management
                 </li>
               </ul>
               <Link
@@ -210,16 +274,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-orange-500 to-orange-600 rounded-[30px] p-16 text-center">
             <h2 className="text-4xl font-bold text-white mb-6">
-              See How AI Models Rank Your Brand
+              Get AI-Powered Draft Recommendations
             </h2>
             <p className="text-xl text-orange-100 mb-8">
-              Monitor your brand visibility across ChatGPT, Claude, Perplexity and more
+              Make smarter picks with real-time analysis across NFL, NBA, and MLB
             </p>
             <Link
-              href="/brand-monitor"
+              href="/draft-setup"
               className="btn-firecrawl-default inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
             >
-              Start Free Analysis
+              Start Your Draft
             </Link>
           </div>
         </div>
@@ -234,7 +298,7 @@ export default function Home() {
               Frequently asked questions
             </h2>
             <p className="text-xl text-zinc-600 animate-fade-in-up animation-delay-200">
-              Everything you need to know about FireGEO Monitor
+              Everything you need to know about FantasyBlock
             </p>
           </div>
 
@@ -246,7 +310,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  How does FireGEO Monitor work?
+                  How does FantasyBlock work?
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 0 ? 'rotate-180' : ''}`}
@@ -260,7 +324,7 @@ export default function Home() {
               {openFaq === 0 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    FireGEO Monitor analyzes your brand's visibility across major AI platforms like ChatGPT, Claude, and Perplexity. Simply enter your website URL, and we'll show you how AI models rank your brand against competitors, what prompts trigger your appearance, and provide actionable insights to improve your AI visibility.
+                    FantasyBlock provides AI-powered draft recommendations based on your league settings, personal preferences, and real-time draft state. Simply set up your league parameters, tell us your strategy preferences, and our AI will suggest optimal picks throughout your draft, explaining why each player is recommended.
                   </p>
                 </div>
               )}
@@ -273,7 +337,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  Which AI providers do you monitor?
+                  Which sports and leagues does FantasyBlock support?
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 1 ? 'rotate-180' : ''}`}
@@ -287,7 +351,7 @@ export default function Home() {
               {openFaq === 1 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    We monitor all major AI platforms including OpenAI's ChatGPT, Anthropic's Claude, Perplexity, Google's Gemini, and more. Our system continuously updates as new AI providers emerge, ensuring you always have comprehensive visibility across the AI landscape.
+                    FantasyBlock currently supports NFL Football, NBA Basketball, and MLB Baseball. We integrate with ESPN and Yahoo Fantasy Sports APIs for seamless league setup and real-time draft tracking. Support for additional sports and platforms is continuously being added.
                   </p>
                 </div>
               )}
@@ -300,7 +364,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  How often is the data updated?
+                  How does the AI make recommendations?
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 2 ? 'rotate-180' : ''}`}
@@ -314,7 +378,7 @@ export default function Home() {
               {openFaq === 2 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    Our monitoring runs in real-time. When you request an analysis, we query all AI providers simultaneously to get the most current results. You can run new analyses anytime to track changes in your brand visibility and see how your optimization efforts are performing.
+                    Our AI analyzes multiple factors including player rankings, injury reports, matchup data, positional scarcity, your roster needs, and your stated preferences. It processes real-time draft state and provides explanations for each recommendation, helping you understand the strategic reasoning behind every suggestion.
                   </p>
                 </div>
               )}
@@ -327,7 +391,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  What insights will I get?
+                  What features are included?
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 3 ? 'rotate-180' : ''}`}
@@ -341,7 +405,7 @@ export default function Home() {
               {openFaq === 3 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    You'll see your brand's visibility score, competitor rankings, which prompts trigger your appearance, response quality analysis, and specific recommendations to improve your AI presence. The platform also tracks trends over time and alerts you to significant changes.
+                    FantasyBlock includes real-time player recommendations, draft board tracking, ESPN/Yahoo integration, custom league settings, positional analysis, player projections, draft strategy explanations, and post-draft team analysis. Pro plans add unlimited drafts and advanced AI features.
                   </p>
                 </div>
               )}
@@ -354,7 +418,7 @@ export default function Home() {
                 className="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-100 transition-colors"
               >
                 <h3 className="text-lg font-semibold text-zinc-900">
-                  How many credits do I need?
+                  Can I try FantasyBlock for free?
                 </h3>
                 <svg
                   className={`w-5 h-5 text-zinc-500 transition-transform ${openFaq === 4 ? 'rotate-180' : ''}`}
@@ -368,7 +432,7 @@ export default function Home() {
               {openFaq === 4 && (
                 <div className="px-6 py-6">
                   <p className="text-zinc-600 leading-relaxed">
-                    Each brand analysis uses 10 credits (1 credit for initial URL analysis, 9 credits for the full AI provider scan). The free tier includes 100 credits monthly, enough for 10 complete analyses. Pro plans include unlimited analyses for comprehensive monitoring.
+                    Yes! The Rookie plan is completely free and includes 3 drafts per season with basic AI recommendations and draft summaries. This gives you a chance to experience how FantasyBlock can improve your draft strategy before upgrading to unlimited features.
                   </p>
                 </div>
               )}
@@ -381,17 +445,17 @@ export default function Home() {
       <section className="py-24 bg-zinc-900">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-6">
-            Start Monitoring Your AI Brand Visibility
+            Dominate Your Fantasy Draft Today
           </h2>
           <p className="text-xl text-zinc-400 mb-8">
-            Take control of how AI models present your brand
+            Join thousands of fantasy managers who trust AI-powered recommendations
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/brand-monitor"
+              href="/draft-setup"
               className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
             >
-              Analyze Your Brand
+              Start Draft Setup
             </Link>
             <Link
               href="/plans"
