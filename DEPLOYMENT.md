@@ -1,6 +1,24 @@
-# =€ FantasyBlock Deployment Guide
+# ğŸš€ FantasyBlock Deployment Guide
 
-## <à Local Development Setup
+## âš¡ Super Quick Start (Recommended)
+
+**Want to run FantasyBlock in 30 seconds?**
+
+```bash
+npm run fantasyblock
+```
+
+This single command does EVERYTHING:
+- Installs dependencies
+- Sets up environment  
+- Configures database with sample data
+- Starts the app at `http://localhost:3000`
+
+See [QUICKSTART.md](QUICKSTART.md) for details.
+
+---
+
+## ğŸ  Manual Local Development Setup
 
 ### Prerequisites
 - Node.js 18+ installed
@@ -68,7 +86,7 @@ vercel postgres create fantasyblock-db
 
 ### 2. Environment Variables
 
-Set these in Vercel Dashboard ’ Project ’ Settings ’ Environment Variables:
+Set these in Vercel Dashboard ï¿½ Project ï¿½ Settings ï¿½ Environment Variables:
 
 **Required:**
 ```
@@ -109,7 +127,7 @@ npm run db:push
 npm run db:seed  # (if created)
 ```
 
-## =Ä Database Schema
+## =ï¿½ Database Schema
 
 The app uses Drizzle ORM with these main tables:
 - Better Auth tables (users, sessions, accounts)
@@ -137,7 +155,7 @@ npm run setup:autumn    # Payment setup
 npm run setup:stripe-portal # Stripe setup
 ```
 
-## =à Troubleshooting
+## =ï¿½ Troubleshooting
 
 ### Build Issues
 ```bash
@@ -173,7 +191,7 @@ npm run db:studio
 node -e "require('./lib/env-validation').validateEnv()"
 ```
 
-## =Ê Performance Tips
+## =ï¿½ Performance Tips
 
 ### Vercel Optimizations
 - Enable Edge Runtime for API routes where possible
@@ -194,7 +212,7 @@ node -e "require('./lib/env-validation').validateEnv()"
 -  CORS properly configured
 -  Rate limiting implemented
 
-## =¨ Production Checklist
+## =ï¿½ Production Checklist
 
 Before going live:
 - [ ] Environment variables configured
@@ -205,7 +223,7 @@ Before going live:
 - [ ] Error monitoring setup (optional)
 - [ ] Backup strategy in place
 
-## =Ş Support
+## =ï¿½ Support
 
 If you encounter issues:
 1. Check this documentation
@@ -214,7 +232,7 @@ If you encounter issues:
 4. Verify environment variables
 5. Review application logs
 
-## <¯ FantasyBlock Specific Features
+## <ï¿½ FantasyBlock Specific Features
 
 After deployment, test these key features:
 - [ ] Homepage loads with sport selection
