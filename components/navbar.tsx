@@ -61,16 +61,16 @@ export function Navbar() {
             {session && (
               <>
                 <Link
-                  href="/chat"
+                  href="/draft-room"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
-                  Basic Chat
+                  Draft Room
                 </Link>
                 <Link
-                  href="/brand-monitor"
+                  href="/league-setup"
                   className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
                 >
-                  Brand Monitor
+                  League Setup
                 </Link>
               </>
             )}
