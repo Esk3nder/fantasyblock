@@ -11,9 +11,14 @@ import {
 } from '@/lib/api-errors';
 import { FEATURE_ID_MESSAGES } from '@/config/constants';
 
-const autumn = new Autumn({
-  apiKey: process.env.AUTUMN_SECRET_KEY!,
-});
+function getAutumnClient() {
+  if (!process.env.AUTUMN_SECRET_KEY) {
+    throw new ExternalServiceError('Autumn configuration missing', 'autumn');
+  }
+  return new Autumn({
+    apiKey: process.env.AUTUMN_SECRET_KEY,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -28,6 +33,7 @@ export async function POST(request: NextRequest) {
 
     // Check if user has enough credits (1 credit for URL scraping)
     try {
+      const autumn = getAutumnClient();
       const access = await autumn.check({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
@@ -63,6 +69,7 @@ export async function POST(request: NextRequest) {
 
     // Track usage (1 credit for scraping)
     try {
+      const autumn = getAutumnClient();
       await autumn.track({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
