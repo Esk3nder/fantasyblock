@@ -17,9 +17,14 @@ import {
   SSE_MAX_DURATION
 } from '@/config/constants';
 
-const autumn = new Autumn({
-  apiKey: process.env.AUTUMN_SECRET_KEY!,
-});
+function getAutumnClient() {
+  if (!process.env.AUTUMN_SECRET_KEY) {
+    throw new ExternalServiceError('Autumn configuration missing', 'autumn');
+  }
+  return new Autumn({
+    apiKey: process.env.AUTUMN_SECRET_KEY,
+  });
+}
 
 export const runtime = 'nodejs'; // Use Node.js runtime for streaming
 export const maxDuration = 300; // 5 minutes
@@ -38,6 +43,7 @@ export async function POST(request: NextRequest) {
     // Check if user has enough credits (10 credits per analysis)
     try {
       console.log('[Brand Monitor] Checking access - Customer ID:', sessionResponse.user.id);
+      const autumn = getAutumnClient();
       const access = await autumn.check({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
@@ -60,6 +66,7 @@ export async function POST(request: NextRequest) {
     // Track usage (10 credits)
     try {
       console.log('[Brand Monitor] Tracking usage - Customer ID:', sessionResponse.user.id, 'Count:', CREDITS_PER_BRAND_ANALYSIS);
+      const autumn = getAutumnClient();
       const trackResult = await autumn.track({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
@@ -90,6 +97,7 @@ export async function POST(request: NextRequest) {
     // Track usage with Autumn (deduct credits)
     try {
       console.log('[Brand Monitor] Recording usage - Customer ID:', sessionResponse.user.id);
+      const autumn = getAutumnClient();
       await autumn.track({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
@@ -104,6 +112,7 @@ export async function POST(request: NextRequest) {
     // Get remaining credits after deduction
     let remainingCredits = 0;
     try {
+      const autumn = getAutumnClient();
       const usage = await autumn.check({
         customer_id: sessionResponse.user.id,
         feature_id: FEATURE_ID_MESSAGES,
