@@ -84,19 +84,8 @@ export default function DraftRoomPage() {
     return () => clearInterval(timer);
   }, [currentPick]);
 
-  // Check authentication
-  if (isPending) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
-  }
-
-  if (!session) {
-    router.push('/login');
-    return null;
-  }
+  // Allow access without authentication for demo purposes
+  // Users can explore the draft UI and later be prompted to register
 
   const isUserTurn = draftBoard.find(pick => pick.pick === currentPick)?.teamIndex === userTeamIndex;
   
