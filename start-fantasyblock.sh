@@ -68,6 +68,12 @@ fi
 
 echo -e "${GREEN}✅ Port 3000 is available${NC}"
 
+# Clean up conflicting lockfiles (ensure we use npm, not pnpm)
+if [ -f "pnpm-lock.yaml" ]; then
+    echo -e "${YELLOW}🧹 Removing pnpm-lock.yaml (using npm instead)...${NC}"
+    rm -f pnpm-lock.yaml
+fi
+
 # Install dependencies
 echo -e "${BLUE}📦 Installing dependencies...${NC}"
 npm install --silent
