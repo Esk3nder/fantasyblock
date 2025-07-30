@@ -29,7 +29,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
               <Link
-                href="/draft-setup"
+                href="/draft-room"
                 className="btn-firecrawl-orange inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
               >
                 Start Draft Setup
@@ -127,7 +127,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/draft-setup" className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8">
+            <Link href="/draft-room" className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8">
               Get Started with Your Sport
             </Link>
           </div>
@@ -280,7 +280,7 @@ export default function Home() {
               Make smarter picks with real-time analysis across NFL, NBA, and MLB
             </p>
             <Link
-              href="/draft-setup"
+              href="/draft-room"
               className="btn-firecrawl-default inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
             >
               Start Your Draft
@@ -452,7 +452,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/draft-setup"
+              href="/draft-room"
               className="btn-firecrawl-orange inline-flex items-center justify-center whitespace-nowrap rounded-[10px] text-base font-medium transition-all duration-200 h-12 px-8"
             >
               Start Draft Setup
