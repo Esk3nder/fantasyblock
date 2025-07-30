@@ -82,10 +82,11 @@ if [ ! -f ".env.local" ]; then
     # Generate Better Auth secret
     echo -e "${BLUE}🔐 Generating Better Auth secret...${NC}"
     SECRET=$(openssl rand -base64 32)
+    # Use | as delimiter to avoid issues with / in base64 strings
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        sed -i '' "s/BETTER_AUTH_SECRET=\".*\"/BETTER_AUTH_SECRET=\"$SECRET\"/" .env.local
+        sed -i '' "s|BETTER_AUTH_SECRET=\".*\"|BETTER_AUTH_SECRET=\"$SECRET\"|" .env.local
     else
-        sed -i "s/BETTER_AUTH_SECRET=\".*\"/BETTER_AUTH_SECRET=\"$SECRET\"/" .env.local
+        sed -i "s|BETTER_AUTH_SECRET=\".*\"|BETTER_AUTH_SECRET=\"$SECRET\"|" .env.local
     fi
     echo -e "${GREEN}✅ Better Auth secret generated${NC}"
 else
@@ -121,9 +122,9 @@ fi
 if ! grep -q "AUTUMN_SECRET_KEY=\".*[^-].*\"" .env.local 2>/dev/null; then
     echo -e "${YELLOW}⚠️  AUTUMN_SECRET_KEY not configured. Using demo key...${NC}"
     if [[ "$OSTYPE" == "darwin"* ]]; then
-        sed -i '' "s/AUTUMN_SECRET_KEY=\".*\"/AUTUMN_SECRET_KEY=\"demo_key_for_testing\"/" .env.local
+        sed -i '' "s|AUTUMN_SECRET_KEY=\".*\"|AUTUMN_SECRET_KEY=\"demo_key_for_testing\"|" .env.local
     else
-        sed -i "s/AUTUMN_SECRET_KEY=\".*\"/AUTUMN_SECRET_KEY=\"demo_key_for_testing\"/" .env.local
+        sed -i "s|AUTUMN_SECRET_KEY=\".*\"|AUTUMN_SECRET_KEY=\"demo_key_for_testing\"|" .env.local
     fi
 fi
 
