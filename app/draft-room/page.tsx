@@ -9,14 +9,9 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Clock, Users, Target, Lightbulb, Search } from 'lucide-react';
+import type { Player as BasePlayer } from '@/lib/services/google-sheets';
 
-interface Player {
-  id: string;
-  name: string;
-  position: string;
-  team: string;
-  rank: number;
-  projected: number;
+interface Player extends BasePlayer {
   drafted: boolean;
 }
 
@@ -43,19 +38,47 @@ export default function DraftRoomPage() {
   const numRounds = 16;
   const userTeamIndex = 5; // User is team 6 (0-indexed)
   
-  // Mock players data
-  const [players, setPlayers] = useState<Player[]>([
-    { id: '1', name: 'Christian McCaffrey', position: 'RB', team: 'SF', rank: 1, projected: 285, drafted: false },
-    { id: '2', name: 'Austin Ekeler', position: 'RB', team: 'LAC', rank: 2, projected: 265, drafted: false },
-    { id: '3', name: 'Josh Allen', position: 'QB', team: 'BUF', rank: 3, projected: 315, drafted: false },
-    { id: '4', name: 'Cooper Kupp', position: 'WR', team: 'LAR', rank: 4, projected: 245, drafted: false },
-    { id: '5', name: 'Derrick Henry', position: 'RB', team: 'TEN', rank: 5, projected: 255, drafted: false },
-    { id: '6', name: 'Stefon Diggs', position: 'WR', team: 'BUF', rank: 6, projected: 235, drafted: false },
-    { id: '7', name: 'Davante Adams', position: 'WR', team: 'LV', rank: 7, projected: 230, drafted: false },
-    { id: '8', name: 'Travis Kelce', position: 'TE', team: 'KC', rank: 8, projected: 195, drafted: false },
-    { id: '9', name: 'Nick Chubb', position: 'RB', team: 'CLE', rank: 9, projected: 225, drafted: false },
-    { id: '10', name: 'Alvin Kamara', position: 'RB', team: 'NO', rank: 10, projected: 220, drafted: false },
-  ]);
+  // Players data from Google Sheets
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [isLoadingPlayers, setIsLoadingPlayers] = useState(true);
+
+  // Fetch players from Google Sheets
+  useEffect(() => {
+    async function loadPlayers() {
+      try {
+        const response = await fetch('/api/players');
+        if (response.ok) {
+          const data = await response.json();
+          // Add drafted: false to all players initially
+          const playersWithDraftStatus = data.players.map((p: any) => ({
+            ...p,
+            drafted: false
+          }));
+          setPlayers(playersWithDraftStatus);
+        } else {
+          console.error('Failed to fetch players');
+          // Use fallback data
+          setPlayers([
+            { id: '1', name: 'Christian McCaffrey', position: 'RB', team: 'SF', rank: 1, projected: 285, drafted: false },
+            { id: '2', name: 'Austin Ekeler', position: 'RB', team: 'LAC', rank: 2, projected: 265, drafted: false },
+            { id: '3', name: 'Josh Allen', position: 'QB', team: 'BUF', rank: 3, projected: 315, drafted: false },
+          ]);
+        }
+      } catch (error) {
+        console.error('Error loading players:', error);
+        // Use fallback data
+        setPlayers([
+          { id: '1', name: 'Christian McCaffrey', position: 'RB', team: 'SF', rank: 1, projected: 285, drafted: false },
+          { id: '2', name: 'Austin Ekeler', position: 'RB', team: 'LAC', rank: 2, projected: 265, drafted: false },
+          { id: '3', name: 'Josh Allen', position: 'QB', team: 'BUF', rank: 3, projected: 315, drafted: false },
+        ]);
+      } finally {
+        setIsLoadingPlayers(false);
+      }
+    }
+    
+    loadPlayers();
+  }, []);
 
   const [draftBoard, setDraftBoard] = useState<DraftPick[]>([]);
   const [userRoster, setUserRoster] = useState<Player[]>([]);
@@ -237,7 +260,16 @@ export default function DraftRoomPage() {
 
               {/* Players List */}
               <div className="space-y-2 max-h-96 overflow-y-auto">
-                {filteredPlayers.slice(0, 20).map((player, index) => (
+                {isLoadingPlayers ? (
+                  <div className="text-center py-8 text-zinc-500">
+                    <p>Loading players from database...</p>
+                  </div>
+                ) : filteredPlayers.length === 0 ? (
+                  <div className="text-center py-8 text-zinc-500">
+                    <p>No players found</p>
+                  </div>
+                ) : (
+                  filteredPlayers.slice(0, 20).map((player, index) => (
                   <div
                     key={player.id}
                     className={`flex items-center justify-between p-3 rounded-lg border hover:bg-gray-50 transition-colors ${
@@ -261,7 +293,8 @@ export default function DraftRoomPage() {
                       )}
                     </div>
                   </div>
-                ))}
+                ))
+                )}
               </div>
             </Card>
           </div>
