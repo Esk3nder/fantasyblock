@@ -62,8 +62,8 @@ export async function fetchPlayersFromSheet(): Promise<Player[]> {
   }
 
   try {
-    // Use gid=0 for the first sheet, change if your Players sheet has a different gid
-    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=0`;
+    // Use gid=253710881 for the Players sheet
+    const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=253710881`;
     
     const response = await fetch(url, {
       next: { revalidate: 300 } // Cache for 5 minutes in Next.js
@@ -159,10 +159,10 @@ export async function fetchSheetByName(sheetName: string): Promise<any[]> {
     // For named sheets, you'll need to know the gid (sheet ID within the spreadsheet)
     // You can find this in the URL when you select the sheet tab
     const gidMap: Record<string, string> = {
-      'Players': '0',
-      'PlayerStats': '1', // Update with actual gid
-      'Teams': '2', // Update with actual gid
-      'ScoringSettings': '3', // Update with actual gid
+      'Players': '253710881', // Your Players sheet gid from the URL
+      'PlayerStats': '1', // Update with actual gid when you click that tab
+      'Teams': '2', // Update with actual gid when you click that tab
+      'ScoringSettings': '3', // Update with actual gid when you click that tab
     };
     
     const gid = gidMap[sheetName] || '0';
