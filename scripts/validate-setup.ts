@@ -8,12 +8,13 @@
 
 import { existsSync } from 'fs';
 import { join } from 'path';
+import { verifyNextjsSetup } from './verify-nextjs-packages';
 
-const RED = '\033[0;31m';
-const GREEN = '\033[0;32m';
-const YELLOW = '\033[1;33m';
-const BLUE = '\033[0;34m';
-const NC = '\033[0m'; // No Color
+const RED = '\x1b[0;31m';
+const GREEN = '\x1b[0;32m';
+const YELLOW = '\x1b[1;33m';
+const BLUE = '\x1b[0;34m';
+const NC = '\x1b[0m'; // No Color
 
 interface ValidationResult {
   passed: boolean;
@@ -116,6 +117,15 @@ const validations: { [key: string]: () => ValidationResult } = {
         : `Missing pages: ${missingPages.join(', ')}`,
       critical: true
     };
+  },
+
+  'Next.js Packages': () => {
+    // This will be checked separately with detailed output
+    return {
+      passed: true,
+      message: 'Will be verified separately',
+      critical: true
+    };
   }
 };
 
@@ -153,6 +163,17 @@ async function validateSetup() {
     const icon = result.passed ? '✅' : (result.critical ? '❌' : '⚠️');
     const color = result.passed ? GREEN : (result.critical ? RED : YELLOW);
     console.log(`${icon} ${color}${name}:${NC} ${result.message}`);
+  }
+
+  console.log('');
+
+  // Run Next.js package verification
+  console.log(`${BLUE}Running detailed Next.js package verification...${NC}\n`);
+  const nextjsValid = await verifyNextjsSetup();
+  
+  if (!nextjsValid) {
+    criticalFailures++;
+    totalFailures++;
   }
 
   console.log('');

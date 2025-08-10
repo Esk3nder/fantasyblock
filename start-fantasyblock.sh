@@ -74,9 +74,41 @@ if [ -f "pnpm-lock.yaml" ]; then
     rm -f pnpm-lock.yaml
 fi
 
-# Install dependencies
-echo -e "${BLUE}📦 Installing dependencies...${NC}"
-npm install --silent
+# Verify Next.js packages BEFORE installing (quick check)
+echo -e "${BLUE}🔍 Checking Next.js packages...${NC}"
+if [ -d "node_modules/next" ] && [ -d "node_modules/react" ] && [ -d "node_modules/react-dom" ]; then
+    echo -e "${GREEN}✅ Core Next.js packages found${NC}"
+else
+    echo -e "${YELLOW}⚠️  Next.js packages not found. Will install...${NC}"
+    NEEDS_INSTALL=true
+fi
+
+# Install dependencies if needed
+if [ "$NEEDS_INSTALL" = true ] || [ ! -d "node_modules" ]; then
+    echo -e "${BLUE}📦 Installing dependencies...${NC}"
+    npm install --silent
+else
+    echo -e "${GREEN}✅ Dependencies already installed${NC}"
+fi
+
+# Comprehensive Next.js verification after install
+echo -e "${BLUE}🔍 Verifying Next.js setup...${NC}"
+if npx tsx scripts/verify-nextjs-packages.ts 2>/dev/null; then
+    echo -e "${GREEN}✅ All Next.js packages verified${NC}"
+else
+    echo -e "${RED}❌ Next.js package verification failed!${NC}"
+    echo -e "${YELLOW}💡 Trying to fix by reinstalling...${NC}"
+    rm -rf node_modules package-lock.json
+    npm install
+    
+    # Verify again
+    if npx tsx scripts/verify-nextjs-packages.ts 2>/dev/null; then
+        echo -e "${GREEN}✅ Next.js packages fixed and verified${NC}"
+    else
+        echo -e "${RED}❌ Could not fix Next.js packages. Please check your package.json${NC}"
+        exit 1
+    fi
+fi
 
 # Setup environment
 echo -e "${BLUE}🔧 Setting up environment...${NC}"
