@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "setup": "npm install && npm run db:push",
+        "run": "npm run dev"
+    }
+}

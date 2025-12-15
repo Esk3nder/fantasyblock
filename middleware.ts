@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSessionCookie } from 'better-auth/cookies';
 
 // Define protected routes
-const protectedRoutes = ['/dashboard', '/chat', '/brand-monitor'];
+const protectedRoutes = ['/dashboard', '/chat', '/brand-monitor', '/draft-setup', '/draft-room'];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -38,12 +38,12 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
      * - public folder
+     * API routes are now included to apply security headers
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).)',
+    '/((?!_next/static|_next/image|favicon.ico|.*\\..*).)',
   ],
 };
