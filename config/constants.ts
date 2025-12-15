@@ -5,6 +5,27 @@
 // Feature IDs and Identifiers
 // ============================================
 export const FEATURE_ID_MESSAGES = 'messages';
+export const FEATURE_ID_DRAFTS = 'drafts';
+export const FEATURE_ID_AI_RECOMMENDATIONS = 'ai_recommendations';
+
+// ============================================
+// Subscription Plan Limits
+// ============================================
+export const PLAN_LIMITS = {
+  free: {
+    draftsPerMonth: 1,
+    aiRecommendationsPerDraft: 0, // No AI recommendations on free
+  },
+  pro: {
+    draftsPerMonth: -1, // Unlimited
+    aiRecommendationsPerDraft: -1, // Unlimited
+  },
+} as const;
+
+export const PLAN_IDS = {
+  FREE: 'free',
+  PRO: 'pro',
+} as const;
 
 // ============================================
 // User Roles

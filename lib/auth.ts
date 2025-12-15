@@ -11,7 +11,7 @@ export const auth = betterAuth({
   baseURL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: false, // Set to true to require email verification
+    requireEmailVerification: true, // Require email verification for security
     sendResetPassword: async ({ user, url }, request) => {
       console.log('Password reset link:', url);
       
@@ -52,7 +52,7 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
-    sendOnSignUp: false, // Set to true to send verification email on signup
+    sendOnSignUp: true, // Send verification email on signup
     autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url }, request) => {
       console.log('Verification link:', url);

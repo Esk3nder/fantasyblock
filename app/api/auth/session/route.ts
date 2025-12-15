@@ -9,7 +9,6 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       session: session || null,
-      cookies: request.headers.get('cookie'),
       timestamp: new Date().toISOString(),
     });
   } catch (error: any) {

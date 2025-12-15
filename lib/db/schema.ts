@@ -1,9 +1,13 @@
-import { pgTable, text, timestamp, uuid, boolean, jsonb, integer, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, uuid, boolean, jsonb, integer, pgEnum, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // Enums
 export const roleEnum = pgEnum('role', ['user', 'assistant']);
 export const themeEnum = pgEnum('theme', ['light', 'dark']);
+export const sportEnum = pgEnum('sport', ['NBA', 'NFL', 'MLB']);
+export const draftTypeEnum = pgEnum('draft_type', ['snake', 'auction', 'linear']);
+export const scoringTypeEnum = pgEnum('scoring_type', ['standard', 'ppr', 'half_ppr', 'points', 'categories']);
+export const draftStatusEnum = pgEnum('draft_status', ['setup', 'in_progress', 'completed', 'abandoned']);
 
 // User Profile table - extends Better Auth user with additional fields
 export const userProfile = pgTable('user_profile', {
@@ -113,6 +117,101 @@ export const brandAnalysesRelations = relations(brandAnalyses, ({ one }) => ({
   }),
 }));
 
+// ============================================
+// Fantasy Draft Tables
+// ============================================
+
+// Drafts table - stores draft configurations
+export const drafts = pgTable('drafts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: text('user_id').notNull(),
+  sport: sportEnum('sport').notNull().default('NBA'),
+  draftType: draftTypeEnum('draft_type').notNull().default('snake'),
+  leagueName: text('league_name'),
+  numTeams: integer('num_teams').notNull().default(12),
+  draftPosition: integer('draft_position').notNull().default(1),
+  scoringType: scoringTypeEnum('scoring_type').notNull().default('points'),
+  rosterSize: integer('roster_size').notNull().default(13),
+  currentRound: integer('current_round').default(1),
+  currentPick: integer('current_pick').default(1),
+  status: draftStatusEnum('status').notNull().default('setup'),
+  settings: jsonb('settings'), // Additional settings like roster positions
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdate(() => new Date()),
+}, (table) => [
+  index('idx_drafts_user_id').on(table.userId),
+  index('idx_drafts_status').on(table.status),
+  index('idx_drafts_created_at').on(table.createdAt),
+]);
+
+// Players table - stores player data from Sleeper API
+export const players = pgTable('players', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  sleeperId: text('sleeper_id').unique(),
+  sport: sportEnum('sport').notNull().default('NBA'),
+  firstName: text('first_name'),
+  lastName: text('last_name'),
+  fullName: text('full_name').notNull(),
+  team: text('team'),
+  position: text('position'),
+  positions: jsonb('positions'), // Array of positions for multi-position players
+  age: integer('age'),
+  adp: integer('adp'), // Average Draft Position
+  projectedPoints: integer('projected_points'),
+  injuryStatus: text('injury_status'),
+  status: text('status'), // Active, Inactive, etc.
+  metadata: jsonb('metadata'), // Additional player data
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow().$onUpdate(() => new Date()),
+}, (table) => [
+  index('idx_players_sport').on(table.sport),
+  index('idx_players_team').on(table.team),
+  index('idx_players_position').on(table.position),
+  index('idx_players_full_name').on(table.fullName),
+  index('idx_players_sleeper_id').on(table.sleeperId),
+]);
+
+// Draft Picks table - stores picks made during a draft
+export const draftPicks = pgTable('draft_picks', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  draftId: uuid('draft_id').notNull().references(() => drafts.id, { onDelete: 'cascade' }),
+  playerId: uuid('player_id').notNull().references(() => players.id),
+  teamNumber: integer('team_number').notNull(), // Which team made the pick (1-12)
+  round: integer('round').notNull(),
+  pickNumber: integer('pick_number').notNull(), // Overall pick number
+  pickInRound: integer('pick_in_round').notNull(), // Pick number within the round
+  isUserPick: boolean('is_user_pick').default(false),
+  createdAt: timestamp('created_at').defaultNow(),
+}, (table) => [
+  index('idx_draft_picks_draft_id').on(table.draftId),
+  index('idx_draft_picks_player_id').on(table.playerId),
+  index('idx_draft_picks_team_number').on(table.teamNumber),
+]);
+
+// Draft relations
+export const draftsRelations = relations(drafts, ({ one, many }) => ({
+  userProfile: one(userProfile, {
+    fields: [drafts.userId],
+    references: [userProfile.userId],
+  }),
+  picks: many(draftPicks),
+}));
+
+export const draftPicksRelations = relations(draftPicks, ({ one }) => ({
+  draft: one(drafts, {
+    fields: [draftPicks.draftId],
+    references: [drafts.id],
+  }),
+  player: one(players, {
+    fields: [draftPicks.playerId],
+    references: [players.id],
+  }),
+}));
+
+export const playersRelations = relations(players, ({ many }) => ({
+  draftPicks: many(draftPicks),
+}));
+
 // Type exports for use in application
 export type UserProfile = typeof userProfile.$inferSelect;
 export type NewUserProfile = typeof userProfile.$inferInsert;
@@ -126,3 +225,9 @@ export type UserSettings = typeof userSettings.$inferSelect;
 export type NewUserSettings = typeof userSettings.$inferInsert;
 export type BrandAnalysis = typeof brandAnalyses.$inferSelect;
 export type NewBrandAnalysis = typeof brandAnalyses.$inferInsert;
+export type Draft = typeof drafts.$inferSelect;
+export type NewDraft = typeof drafts.$inferInsert;
+export type Player = typeof players.$inferSelect;
+export type NewPlayer = typeof players.$inferInsert;
+export type DraftPick = typeof draftPicks.$inferSelect;
+export type NewDraftPick = typeof draftPicks.$inferInsert;
